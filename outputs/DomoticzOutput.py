@@ -12,10 +12,8 @@ class DomoticzOutput(PluginLoader.Plugin):
 
     def process_message(self, msg):
         """Send the information from the inverter to Domoticz.
-
         Args:
             msg (InverterMsg.InverterMsg): Message to process
-
         """
         section_id = 'domoticz-'+msg.id
         if not self.config.has_section(section_id):
@@ -69,7 +67,7 @@ class DomoticzOutput(PluginLoader.Plugin):
         else: self.logger.debug('E_today not defined: '+str(msg.e_today)+' kWh')
         if (self.config.has_option(section_id, 'E_total_idx')):
             data_idx_array.update ({
-                self.config.get(section_id, 'E_total_idx'): e_total,
+                self.config.get(section_id, 'E_total_idx'): e_total+7652.27,
             })
         else: self.logger.debug('E_total not defined: '+str(e_total)+' kWh')
         if (self.config.has_option(section_id, 'E_total_c_idx')):
@@ -79,7 +77,7 @@ class DomoticzOutput(PluginLoader.Plugin):
         else: self.logger.debug('E_total c_not defined: '+str(e_total)+' kWh')
         if (self.config.has_option(section_id, 'H_total_idx')):
             data_idx_array.update ({
-                self.config.get(section_id, 'H_total_idx'): msg.h_total,
+                self.config.get(section_id, 'H_total_idx'): msg.h_total+11250,
             })
         else: self.logger.debug('H_total not defined: '+str(msg.h_total)+' hours')
         # Send i_pv(1-3)
